@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "379583833861-rm3g9qthkcdqckdiq0gtammks9cudl9u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arent",
+            "certificate_hash": "2b0cec0bf07bc3fc196c512d24a7d50909c9a897"
+          }
+        },
+        {
           "client_id": "379583833861-svrl3ji05vv8feud7u6e40sfll8obmkd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

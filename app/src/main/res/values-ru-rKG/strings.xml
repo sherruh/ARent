@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ARent</string>
+    <string name="get_started">НАЧАТЬ</string>
+    <string name="start_description">Регистрация вашего автомобиля проста и обычно занимает около 10 минут</string>
+</resources>

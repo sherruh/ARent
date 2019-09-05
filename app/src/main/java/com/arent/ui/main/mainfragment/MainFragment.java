@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.arent.R;
+import com.arent.ui.main.phoneauthintication.PhoneAuthActivity;
 
 public class MainFragment extends Fragment {
 
@@ -33,6 +34,8 @@ public class MainFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(MainFragmentViewModel.class);
         // TODO: Use the ViewModel
+
+
     }
 
 }

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.arent.R;
+import com.arent.ui.main.phoneauthintication.PhoneAuthActivity;
 
 public class MyCarsFragment extends Fragment {
 
@@ -25,7 +26,9 @@ public class MyCarsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.my_cars_fragment, container, false);
+        return inflater.inflate(R.layout.my_cars_initial_fragment, container, false);
+
+
     }
 
     @Override
@@ -33,6 +36,7 @@ public class MyCarsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(MyCarsFragmentViewModel.class);
         // TODO: Use the ViewModel
+        PhoneAuthActivity.startActivity(getContext());
     }
 
 }

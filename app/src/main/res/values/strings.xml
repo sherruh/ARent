@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ARent</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="get_started">GET STARTED</string>
+    <string name="start_description">Listing your car is simple and usually takes about 10 minutes</string>
 </resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.mycarsfragment.MyCarsFragment">
+
+    <ImageView
+        android:id="@+id/my_cars_gragment_image_start"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/image_road"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/my_cars_gragment_tv_description"
+        android:layout_width="396dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="20dp"
+        android:textAlignment="center"
+        android:gravity="center_vertical"
+        android:textSize="23sp"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/start_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/my_cars_gragment_tv_start"
+        android:layout_width="329dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="88dp"
+        android:text="@string/get_started"
+        android:textColor="@color/colorWhite"
+        android:textSize="23sp"
+        android:textAlignment="center"
+        android:gravity="center_vertical"
+        android:background="@color/colorOrange"
+        app:layout_constraintBottom_toBottomOf="@+id/my_cars_gragment_image_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
