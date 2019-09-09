@@ -3,4 +3,8 @@
     <string name="app_name">ARent</string>
     <string name="get_started">НАЧАТЬ</string>
     <string name="start_description">Регистрация вашего автомобиля проста и обычно занимает около 10 минут</string>
+    <string name="phone_code">+996</string>
+    <string name="get_auth_code">Получить код</string>
+    <string name="enter_auth_code">Введите код</string>
+    <string name="send_auth_code">Отправить код</string>
 </resources>

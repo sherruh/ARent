@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.arent.R;
-import com.arent.ui.main.phoneauthintication.PhoneAuthActivity;
+
 
 public class MainFragment extends Fragment {
 

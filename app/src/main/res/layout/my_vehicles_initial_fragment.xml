@@ -4,47 +4,48 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.mycarsfragment.MyCarsFragment">
+    tools:context=".ui.main.myvehiclesfragment.initial.MyVehiclesInitialFragment">
 
     <ImageView
-        android:id="@+id/my_cars_gragment_image_start"
+        android:id="@+id/my_vehicles_initial_fragment_image_start"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/image_road"
         android:scaleType="centerCrop"/>
 
     <TextView
-        android:id="@+id/my_cars_gragment_tv_description"
+        android:id="@+id/my_vehicles_initial_fragment__tv_description"
         android:layout_width="396dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="20dp"
-        android:textAlignment="center"
         android:gravity="center_vertical"
-        android:textSize="23sp"
-        android:textColor="@color/colorPrimary"
         android:text="@string/start_description"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/my_cars_gragment_tv_start"
-        android:layout_width="329dp"
-        android:layout_height="79dp"
+        android:id="@+id/my_vehicles_initial_fragment_tv_start"
+        android:layout_width="314dp"
+        android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="88dp"
+        android:background="@color/colorOrange"
+        android:gravity="center_vertical"
         android:text="@string/get_started"
+        android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="23sp"
-        android:textAlignment="center"
-        android:gravity="center_vertical"
-        android:background="@color/colorOrange"
-        app:layout_constraintBottom_toBottomOf="@+id/my_cars_gragment_image_start"
+        app:layout_constraintBottom_toBottomOf="@+id/my_vehicles_initial_fragment_image_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

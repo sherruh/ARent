@@ -1,12 +1,12 @@
 package com.arent.ui.main;
 
-import android.os.Build;
 import android.os.Bundle;
 
+import com.arent.App;
 import com.arent.ui.main.mainfragment.MainFragment;
-import com.arent.ui.main.mycarsfragment.MyCarsFragment;
+import com.arent.ui.main.myvehiclesfragment.MyVehicles;
+import com.arent.ui.main.myvehiclesfragment.initial.MyVehiclesInitialFragment;
 import com.arent.ui.main.profilefragment.ProfileFragment;
-import com.arent.utils.Logger;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
@@ -15,16 +15,15 @@ import androidx.fragment.app.Fragment;
 import android.view.MenuItem;
 
 import com.arent.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     private Fragment fragment;
     private MainFragment mainFragment;
-    private MyCarsFragment myCarsFragment;
+    private MyVehicles myVehicles;
+    private MyVehiclesInitialFragment myVehiclesInitialFragment;
     private ProfileFragment profileFragment;
-
+    public BottomNavigationView navView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -35,8 +34,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_main_fragment:
                     fragment = mainFragment;
                     break;
-                case R.id.navigation_new_anouncement_fragment:
-                    fragment = myCarsFragment;
+                case R.id.navigation_my_vehicles_fragment:
+                    if (App.isLogged) fragment = myVehicles;
+                    else fragment = myVehiclesInitialFragment;
                     break;
                 case R.id.navigation_my_profile_fragment:
                     fragment = profileFragment;
@@ -52,12 +52,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
 
         fragment = null;
         mainFragment = MainFragment.newInstance();
-        myCarsFragment = MyCarsFragment.newInstance();
+        myVehiclesInitialFragment = MyVehiclesInitialFragment.newInstance();
         profileFragment = ProfileFragment.newInstance();
+        myVehicles = MyVehicles.newInstance();
 
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navView.setSelectedItemId(R.id.navigation_main_fragment);

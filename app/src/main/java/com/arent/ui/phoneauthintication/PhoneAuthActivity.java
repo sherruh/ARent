@@ -1,9 +1,10 @@
-package com.arent.ui.main.phoneauthintication;
+package com.arent.ui.phoneauthintication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -21,10 +22,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.concurrent.TimeUnit;
 
@@ -39,6 +41,13 @@ public class PhoneAuthActivity extends AppCompatActivity {
     private static final String TAG = "PhoneAuthActivity";
 
     private static final String KEY_VERIFY_IN_PROGRESS = "key_verify_in_progress";
+
+    private PhoneAuthViewModel viewModel;
+    private EditText editPhoneNumber;
+    private TextView tvPhoneCode;
+    private Button buttonGetCode;
+    private EditText editCode;
+    private Button buttonSendCode;
 
     private static final int STATE_INITIALIZED = 1;
     private static final int STATE_CODE_SENT = 2;
@@ -61,20 +70,11 @@ public class PhoneAuthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone_auth);
-
-        // Restore instance state
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
         }
 
-
-        // [START initialize_auth]
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
-
-        // Initialize phone auth callbacks
-        // [START phone_auth_callbacks]
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
@@ -145,6 +145,37 @@ public class PhoneAuthActivity extends AppCompatActivity {
         };
         // [END phone_auth_callbacks]
 
+        tvPhoneCode = findViewById(R.id.activity_phone_auth_tv_phone_code);
+        editPhoneNumber = findViewById(R.id.activity_phone_auth_edit_phone_number);
+        buttonGetCode = findViewById(R.id.activity_phone_auth_button_get_code);
+        editCode = findViewById(R.id.activity_phone_auth_edit_code);
+        buttonSendCode = findViewById(R.id.activity_phone_auth_button_send_code);
+
+        viewModel = ViewModelProviders.of(this).get(PhoneAuthViewModel.class);
+        viewModel.isWaitingCode.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+
+                    tvPhoneCode.setVisibility(View.GONE);
+                    editPhoneNumber.setVisibility(View.GONE);
+                    buttonGetCode.setVisibility(View.GONE);
+                    editCode.setVisibility(View.VISIBLE);
+                    buttonSendCode.setVisibility(View.VISIBLE);
+                    editCode.setSelected(true);
+                }else{
+
+                    tvPhoneCode.setVisibility(View.VISIBLE);
+                    editPhoneNumber.setVisibility(View.VISIBLE);
+                    buttonGetCode.setVisibility(View.VISIBLE);
+                    editCode.setVisibility(View.GONE);
+                    buttonSendCode.setVisibility(View.GONE);
+                }
+            }
+
+        });
+
+        viewModel.start();
 
     }
 
@@ -153,13 +184,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
 
-        // [START_EXCLUDE]
-        if (mVerificationInProgress && validatePhoneNumber()) {
-            startPhoneNumberVerification("+996700000995");
-        }
         // [END_EXCLUDE]
     }
     // [END on_start_check_user]
@@ -225,6 +250,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
                             // [START_EXCLUDE]
                             updateUI(STATE_SIGNIN_SUCCESS, user);
                             // [END_EXCLUDE]
+                            PhoneAuthActivity.this.finish();
                         } else {
                             // Sign in failed, display a message and update the UI
                           Logger.message("signInWithCredential:failure" + task.getException());
@@ -233,6 +259,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
                                 // [START_EXCLUDE silent]
                                 Logger.message("Invalid code.");
                                 // [END_EXCLUDE]
+                                viewModel.start();
                             }
                             // [START_EXCLUDE silent]
                             // Update UI
@@ -244,22 +271,11 @@ public class PhoneAuthActivity extends AppCompatActivity {
     }
     // [END sign_in_with_phone]
 
-    private void signOut() {
-        mAuth.signOut();
-        updateUI(STATE_INITIALIZED);
-    }
 
     private void updateUI(int uiState) {
         updateUI(uiState, mAuth.getCurrentUser(), null);
     }
 
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            updateUI(STATE_SIGNIN_SUCCESS, user);
-        } else {
-            updateUI(STATE_INITIALIZED);
-        }
-    }
 
     private void updateUI(int uiState, FirebaseUser user) {
         updateUI(uiState, user, null);
@@ -315,43 +331,14 @@ public class PhoneAuthActivity extends AppCompatActivity {
         }
     }
 
-    private boolean validatePhoneNumber() {
-        String phoneNumber = "+996700000995";
-        if (TextUtils.isEmpty(phoneNumber)) {
-            Logger.message("Invalid phone number.");
-            return false;
-        }
 
-        return true;
+    public void onGetCodeClick(View view) {
+        Logger.message(R.string.phone_code + editPhoneNumber.getText().toString());
+        startPhoneNumberVerification(tvPhoneCode.getText() + editPhoneNumber.getText().toString());
+        viewModel.waitCode();
     }
 
-    private void enableViews(View... views) {
-        for (View v : views) {
-            v.setEnabled(true);
-        }
-    }
-
-    private void disableViews(View... views) {
-        for (View v : views) {
-            v.setEnabled(false);
-        }
-    }
-
-
-
-
-
-    public void onClick(View view) {
-        EditText editText = findViewById(R.id.edit_code);
-        verifyPhoneNumberWithCode(mVerificationId, editText.getText().toString());
-    }
-
-    public void onClick1(View view) {
-
-        startPhoneNumberVerification("+996700000995");
-    }
-
-    public void onClick2(View view) {
-        signOut();
+    public void onSendCodeClick(View view) {
+        verifyPhoneNumberWithCode(mVerificationId, editCode.getText().toString().trim());
     }
 }

@@ -4,15 +4,36 @@ import android.app.Application;
 
 import com.arent.utils.Logger;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class App extends Application {
 
-    private FirebaseAuth mAuth;
+    public static FirebaseAuth firebaseAuth;
+    public static FirebaseUser firebaseUser;
+    public static boolean isLogged = true;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mAuth = FirebaseAuth.getInstance();
-        Logger.message(mAuth.getCurrentUser().getPhoneNumber());
+        getFirebaseUser();
+        if (firebaseUser == null) isLogged = false;
+    }
+
+    public static boolean isLoggedIn(){
+        getFirebaseUser();
+        if(firebaseUser == null) {
+            isLogged = false;
+            return false;
+        }
+        else {
+            Logger.message(firebaseAuth.getCurrentUser().getPhoneNumber());
+            isLogged = true;
+            return true;
+        }
+    }
+
+    private static void getFirebaseUser(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
     }
 }
