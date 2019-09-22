@@ -6,4 +6,5 @@
     <string name="get_auth_code">Get code</string>
     <string name="enter_auth_code">Enter code</string>
     <string name="send_auth_code">Send code</string>
+    <string name="select_vehicle_brand">Select vehicle brand</string>
 </resources>

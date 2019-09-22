@@ -7,4 +7,5 @@
     <string name="get_auth_code">Получить код</string>
     <string name="enter_auth_code">Введите код</string>
     <string name="send_auth_code">Отправить код</string>
+    <string name="select_vehicle_brand">Выберите марку</string>
 </resources>

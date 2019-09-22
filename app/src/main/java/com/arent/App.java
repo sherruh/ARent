@@ -2,12 +2,15 @@ package com.arent;
 
 import android.app.Application;
 
+import com.arent.repository.remote.IRemoteStorage;
+import com.arent.repository.remote.RemoteStorage;
 import com.arent.utils.Logger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class App extends Application {
 
+    public static IRemoteStorage remoteStorage;
     public static FirebaseAuth firebaseAuth;
     public static FirebaseUser firebaseUser;
     public static boolean isLogged = true;
@@ -15,6 +18,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        remoteStorage = new RemoteStorage();
         getFirebaseUser();
         if (firebaseUser == null) isLogged = false;
     }
